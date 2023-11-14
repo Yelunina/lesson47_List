@@ -2,27 +2,26 @@ package ait.list;
 
 import java.util.*;
 
-public class ListPerfomanceTestAppl {
-    private static final int N_NUMBERS = 1_000_000;
+public class ListPerfomanceTest {
+    private static final int N_NUMBERS = 500_000;
+    private static final Random random = new Random();
     private static final int MIN = 10;
-    private static final int MAX = 100;
-    private static Random random = new Random();
+    private static final int MAX = 20;
 
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        fillList(list);
-
-        System.out.println("===== for-each =====");
+        List<Integer> list = new LinkedList<>();
+        fillCollection(list);
+        System.out.println("===== Foreach =====");
         long t1 = System.currentTimeMillis();
         int sum = 0;
-        for (Integer integer : list) {
-            sum += integer;
+        for (Integer num : list) {
+            sum += num;
         }
         long t2 = System.currentTimeMillis();
         System.out.println("sum = " + sum);
         System.out.println("duration = " + (t2 - t1));
 
-        System.out.println("===== iterator =====");
+        System.out.println("===== Iterator =====");
         t1 = System.currentTimeMillis();
         sum = 0;
         Iterator<Integer> iterator = list.iterator();
@@ -33,7 +32,7 @@ public class ListPerfomanceTestAppl {
         System.out.println("sum = " + sum);
         System.out.println("duration = " + (t2 - t1));
 
-        System.out.println("===== for loop =====");
+        System.out.println("===== For loop =====");
         t1 = System.currentTimeMillis();
         sum = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -44,12 +43,12 @@ public class ListPerfomanceTestAppl {
         System.out.println("duration = " + (t2 - t1));
     }
 
-    private static void fillList(List<Integer> list) {
+    private static void fillCollection(List<Integer> list) {
         long t1 = System.currentTimeMillis();
         for (int i = 0; i < N_NUMBERS; i++) {
-            list.add(MIN + random.nextInt(MAX - MIN));
+            list.add(MIN + random.nextInt(MAX - MIN + 1));
         }
         long t2 = System.currentTimeMillis();
-        System.out.println("duration of fillList = " + (t2 - t1));
+        System.out.println("duration of fillCollection = " + (t2 - t1));
     }
 }
